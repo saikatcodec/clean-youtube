@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import ImgCard from "../Card";
+
+import NoPlaylist from "./NoPlaylist";
+import PlaylistContainer from "./PlaylistContainer";
 
 const HomePage = ({ playlists }) => {
   const [items, setItems] = useState([]);
@@ -10,8 +12,11 @@ const HomePage = ({ playlists }) => {
 
   return (
     <>
-      {items.length > 0 &&
-        items.map((item) => <ImgCard key={item.playlistId} item={item} />)}
+      {items.length > 0 ? (
+        <PlaylistContainer listItem={items} />
+      ) : (
+        <NoPlaylist />
+      )}
     </>
   );
 };

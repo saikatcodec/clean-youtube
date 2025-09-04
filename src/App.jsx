@@ -6,10 +6,7 @@ import usePlaylist from "./hooks/usePlaylist";
 import HomePage from "./components/Home";
 
 const App = () => {
-  const { state, getPlaylistById } = usePlaylist();
-
-  // TODO: Delete the console log
-  console.log(state);
+  const { state, loading, getPlaylistById } = usePlaylist();
 
   return (
     <>
@@ -17,8 +14,8 @@ const App = () => {
        * CssBaseline for reset the default CSS styles of browser
        */}
       <CssBaseline />
-      <Navbar getPlaylistById={getPlaylistById} />
-      <Container maxWidth="lg">
+      <Navbar getPlaylistById={getPlaylistById} loading={loading} />
+      <Container maxWidth="lg" sx={{ mt: 10, mb: 2 }}>
         <HomePage playlists={state.playlists} />
       </Container>
     </>

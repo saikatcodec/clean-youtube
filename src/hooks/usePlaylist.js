@@ -2,19 +2,34 @@ import { useState } from "react";
 
 import getPlaylists from "../api/fetchData";
 
+/**
+ * Initial state of the app
+ */
 const INIT_STATE = {
   playlists: {},
   favorites: [],
   recents: [],
 };
 
+/**
+ * Custom hook for controlling the app
+ * @returns Object and Function for later use
+ */
 const usePlaylist = () => {
   const [state, setState] = useState(INIT_STATE);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  /**
+   * Change the state by fetching data from youtube data api
+   * @param {string} playlistId Unique ID of Youtube playlist
+   */
   const getPlaylistById = async (playlistId) => {
     setLoading(true);
+    if (state.playlists[playlistId]) {
+      setLoading(false);
+      return;
+    }
     let responseData;
 
     try {
@@ -36,18 +51,34 @@ const usePlaylist = () => {
     }));
   };
 
+  /**
+   * Add Playlist ID to favorites
+   * @param {string} playlistId Unique ID of Youtube playlist
+   */
   const addToFavorites = (playlistId) => {
+    setLoading(true);
+
     setState((prev) => ({
       ...prev,
       favorites: [...prev.favorites, playlistId],
     }));
+
+    setLoading(false);
   };
 
+  /**
+   * Add Playlist ID to recents
+   * @param {string} playlistId Unique ID of Youtube playlist
+   */
   const addToRecents = (playlistId) => {
+    setLoading(true);
+
     setState((prev) => ({
       ...prev,
       recents: [...prev.recents, playlistId],
     }));
+
+    setLoading(false);
   };
 
   return {
