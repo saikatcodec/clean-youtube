@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
-export const getItems = async (playlistId, pageToken = "", results = []) => {
+const getItems = async (playlistId, pageToken = "", results = []) => {
   const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${playlistId}&key=${API_KEY}&pageToken=${pageToken}`;
 
   let data;
@@ -21,7 +21,7 @@ export const getItems = async (playlistId, pageToken = "", results = []) => {
   return results;
 };
 
-export const getPlaylists = async (playlistId) => {
+const getPlaylists = async (playlistId) => {
   const url = `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&key=${API_KEY}`;
 
   let playlistInfo;
@@ -34,10 +34,11 @@ export const getPlaylists = async (playlistId) => {
       const {
         title,
         description: videoDes,
-        thumbnails: { default: defaultThumbnails },
+        thumbnails: { medium: defaultThumbnails },
         position,
       } = item.snippet;
       return {
+        id: item.id,
         title,
         videoDes,
         defaultThumbnails,
@@ -50,7 +51,7 @@ export const getPlaylists = async (playlistId) => {
       channelId,
       title: name,
       description,
-      thumbnails: { default: defaultThumbnails },
+      thumbnails: { medium: defaultThumbnails },
       channelTitle: channelName,
     } = data?.items[0]?.snippet;
 
@@ -69,3 +70,5 @@ export const getPlaylists = async (playlistId) => {
 
   return playlistInfo;
 };
+
+export default getPlaylists;
