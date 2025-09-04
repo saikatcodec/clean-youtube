@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -6,19 +7,28 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-function FormDialog({ open, handleClose }) {
+function FormDialog({ open, handleClose, handleDialogSubmit }) {
+  const [state, setState] = useState("");
+
+  const handleChange = (e) => {
+    setState(e.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target.playlist.value);
+    handleDialogSubmit(state);
+    setState("");
     handleClose();
   };
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Add Playlist Link</DialogTitle>
+      <DialogTitle>Playlist Link or ID</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          To add video, insert a Youtube playlist link.
+          To add a new playlist please insert the playlist id or playlist link.
+          Please make sure the link is correct. Otherwise we won't able to fetch
+          the playlist information.
         </DialogContentText>
         <form onSubmit={handleSubmit} id="playlist-form">
           <TextField
@@ -27,10 +37,12 @@ function FormDialog({ open, handleClose }) {
             margin="dense"
             id="playlist"
             name="playlist"
-            label="YouTube Playlist Link"
+            label="YouTube Playlist Link or ID"
             type="text"
             fullWidth
             variant="standard"
+            onChange={handleChange}
+            value={state}
           />
         </form>
       </DialogContent>
