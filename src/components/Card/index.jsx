@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import { Link as RouterLink } from "react-router-dom";
 
 const ImgCard = ({ item }) => {
   return (
@@ -53,6 +54,8 @@ const ImgCard = ({ item }) => {
       <CardActions>
         <Button
           size="small"
+          component={RouterLink}
+          to={`/playlist/${item.playlistId}`}
           variant="outlined"
           color="success"
           startIcon={<PlayCircleOutlineIcon />}

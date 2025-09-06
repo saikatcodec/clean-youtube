@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Slide from "@mui/material/Slide";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 import FormDialog from "../Dialog";
 
@@ -64,7 +66,13 @@ function Navbar(props) {
           <AppBar sx={{ px: 3, bgcolor: "white", color: "black" }}>
             <Toolbar>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Clean Youtube
+                <Link
+                  component={RouterLink}
+                  to="/"
+                  sx={{ textDecoration: "none", color: "black" }}
+                >
+                  Clean Youtube
+                </Link>
               </Typography>
               <Button
                 variant="outlined"
